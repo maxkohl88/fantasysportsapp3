@@ -18,7 +18,6 @@ gem 'haml-rails'
 gem 'nokogiri'
 gem 'pry-rails'
 
-
 group :development, :test do
   gem 'rspec-rails'
 end
