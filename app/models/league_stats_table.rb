@@ -1,6 +1,13 @@
 class LeagueStatsTable < ActiveRecord::Base
   require 'open-uri'
     
+  def initialize(options = {})
+    options.each do |opt|
+      @name = opt[:name]
+      @field_goals_made = opt[:field_goals_made]
+    end
+  end
+
   def self.fetch_stats_table(url)
     Nokogiri::HTML(open(url)).at_css '#statsTable'
   end
