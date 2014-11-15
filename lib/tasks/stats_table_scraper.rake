@@ -1,14 +1,10 @@
-desc "This is a test"
-task :test_task do
-  puts "Hey kid! I'm a computa!"
-end
-
 namespace :scraper do
 
   desc "fetch league stats table"
-  task :league_stats_table => :environment do
+  task :create_league_stats_table => :environment do
+    puts "fetching url"
     url = "http://games.espn.go.com/fba/standings?leagueId=82652&seasonId=2015"
-    table = LeagueStatsTable.fetch_stats_table url
-    puts table
+    LeagueStatsTable.create!(LeagueStatsTable.fetch_stats_table(url))
+    puts "complete"
   end
 end
