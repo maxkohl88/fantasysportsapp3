@@ -22,7 +22,6 @@ def extract_row_values(rows, bench = false)
   rows.each do |row|
     stats_hash = {}
 
-    stats_hash[:bench?] = bench
     stats_hash[:roster_spot] = row.css('.playerSlot').text
     stats_hash[:player_name] = row.css('.playertablePlayerName a').text
     
@@ -43,6 +42,10 @@ def extract_row_values(rows, bench = false)
 end
 
 team_1_starters_hash = extract_row_values extract_rows(team_1_starters)
-team_1_bench_hash = extract_row_values extract_rows(team_1_bench), true
+team_1_bench_hash = extract_row_values extract_rows(team_1_bench)
 team_2_starters_hash = extract_row_values extract_rows(team_2_starters)
-team_2_bench_hash = extract_row_values extract_rows(team_2_bench), true
+team_2_bench_hash = extract_row_values extract_rows(team_2_bench)
+
+team_1_total_stats = team_1_starters_hash.merge team_1_bench_hash
+
+team_2_total_stats = team_2_starters_hash.merge team_2_bench_hash
