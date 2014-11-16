@@ -35,6 +35,8 @@ def extract_row_values(rows, bench = false)
 
     stats_hash.merge! counting_stats_hash
 
+    stats_hash[:fantasy_points] = row.css '.appliedPointsProGameFinal'
+
     table_stats_hash_array << stats_hash
   end
 
