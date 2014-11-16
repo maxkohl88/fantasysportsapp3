@@ -7,4 +7,8 @@ namespace :scraper do
     LeagueStatsTable.create!(LeagueStatsTable.fetch_stats_table(url))
     puts "complete"
   end
+
+  desc "fetch daily matchup data"
+  task :fetch_daily_matchups => :environment do
+  end
 end
