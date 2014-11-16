@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116222250) do
+ActiveRecord::Schema.define(version: 20141116223545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "daily_player_stats", force: true do |t|
+  create_table "daily_player_results", force: true do |t|
     t.string  "roster_spot"
     t.string  "player_name"
     t.integer "game_played"
