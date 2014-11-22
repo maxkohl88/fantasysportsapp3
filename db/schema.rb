@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122021309) do
+ActiveRecord::Schema.define(version: 20141122021507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141122021309) do
     t.integer "turnovers"
     t.integer "points"
     t.integer "fantasy_points"
+    t.string  "owner"
   end
 
   create_table "league_stats_tables", force: true do |t|
