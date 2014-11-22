@@ -15,13 +15,14 @@ def extract_rows(table)
   table.css '.pncPlayerRow'
 end
 
-def extract_row_values(rows, bench = false)
+def extract_row_values(rows)
 
   table_stats_hash_array = []
 
   rows.each do |row|
     stats_hash = {}
 
+    stats_hash[:team_name]
     stats_hash[:roster_spot] = row.css('.playerSlot').text
     stats_hash[:player_name] = row.css('.playertablePlayerName a').text
     
