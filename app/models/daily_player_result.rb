@@ -16,7 +16,6 @@ class DailyPlayerResult < ActiveRecord::Base
     team_1_bench_array = extract_row_values team_1_bench, COUNTING_STATS
     team_2_starters_array = extract_row_values team_2_starters, COUNTING_STATS
     team_2_bench_array = extract_row_values team_2_bench, COUNTING_STATS
-    binding.pry
     team_1_total_stats = team_1_starters_array.push *team_1_bench_array
     team_2_total_stats = team_2_starters_array.push *team_2_bench_array
 
