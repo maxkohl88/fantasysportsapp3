@@ -12,8 +12,8 @@ namespace :scraper do
   task :fetch_daily_box_scores => :environment do
     puts "Fetching box score..."
     url = "http://games.espn.go.com/fba/boxscorefull?leagueId=82652&teamId=13&scoringPeriodId=1&seasonId=2015&view=scoringperiod&version=full"
-    results_hash = DailyPlayerResult.matchup_box_score url
-    DailyPlayerResult.create! results_hash
+    results_hash = DailyStatLine.matchup_box_score url
+    DailyStatLine.create! results_hash
     puts "Box score saved!"
   end
 end
