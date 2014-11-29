@@ -1,12 +1,11 @@
 class LeagueStatsTable < ActiveRecord::Base
   require 'open-uri'
-    
-  def self.fetch_stats_table(url)
-    Nokogiri::HTML(open(url)).at_css '#statsTable'
-  end
 
-  def self.parse_rows(table)
-    table.css '.sortableRow'
+  def self.fetch_stats_table(url)
+    table = Nokogiri::HTML(open(url)).at_css '#statsTable'
+    rows = table.css '.sortableRow'
+    stats_hash = LeagueStatsTable.parse_stats rows
+    stats_hash
   end
 
   def self.parse_stats(rows)
@@ -16,7 +15,7 @@ class LeagueStatsTable < ActiveRecord::Base
 
       stats_hash = {}
     
-      stats_hash[:name] = row.css('a').text
+      stats_hash[:team_name] = row.css('a').text
       stats_hash[:field_goals_made] = row.css('.sortableStat13').text
       stats_hash[:field_goals_attempted] = row.css('.sortableStat14').text
       stats_hash[:free_throws_made] = row.css('.sortableStat15').text
@@ -36,6 +35,4 @@ class LeagueStatsTable < ActiveRecord::Base
 
     all_stats
   end
-
-
 end
