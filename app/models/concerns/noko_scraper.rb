@@ -9,7 +9,7 @@ module NokoScraper
 
     rows.each do |row|
       stats_hash = {}
-      stats_hash[:team_name] = team
+      stats_hash[:owner] = team
       stats_hash[:roster_spot] = row.css('.playerSlot').text
       stats_hash[:player_name] = row.css('.playertablePlayerName a').text  
       counting_stats = row.css('.playertableStat')
