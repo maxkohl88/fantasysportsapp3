@@ -1,0 +1,10 @@
+class CreateLeagues < ActiveRecord::Migration
+  def change
+    create_table :leagues do |t|
+      t.integer :espn_id
+      t.string :name
+
+      t.timestamps
+    end
+  end
+end
