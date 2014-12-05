@@ -16,6 +16,7 @@ class LeagueStatsTable < ActiveRecord::Base
       stats_hash = {}
     
       stats_hash[:team_name] = row.css('a').text
+      stats_hash[:espn_id] = row.at_css('a')[:href].split('&teamId').first.split('=')[1]
       stats_hash[:field_goals_made] = row.css('.sortableStat13').text
       stats_hash[:field_goals_attempted] = row.css('.sortableStat14').text
       stats_hash[:free_throws_made] = row.css('.sortableStat15').text

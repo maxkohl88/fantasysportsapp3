@@ -1,6 +1,6 @@
 module NokoScraper
   require 'open-uri'
-  def extract_website(url)
+  def self.extract_website(url)
     Nokogiri::HTML(open(url))
   end
 
@@ -11,7 +11,7 @@ module NokoScraper
       stats_hash = {}
       stats_hash[:owner] = team
       stats_hash[:roster_spot] = row.css('.playerSlot').text
-      stats_hash[:player_name] = row.css('.playertablePlayerName a').text  
+      stats_hash[:player_name] = row.css('.playertablePlayerName a').text
       counting_stats = row.css('.playertableStat')
       counting_stats_values = counting_stats.map { |stat| stat.text }
       counting_stats_hash = Hash[constant.zip counting_stats_values]

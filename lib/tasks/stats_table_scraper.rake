@@ -8,12 +8,20 @@ namespace :scraper do
     puts "complete"
   end
 
+  desc "create league and teams from stats table"
+  task :create_league_and_teams => :environment do
+    wbl = League.create! name: "The World Basketball League", espn_id: 82652
+  end
+
   desc "fetch league teams"
   task :fetch_league_teams => :environment do
-    league_id = 82652
+    espn_id = 82652
+    name = "The World Basketball League"
     season_id = 2015
-    puts "fetching teams for league #{league_id}"
-    url = "http://games.espn.go.com/fba/standings?leagueId=#{league_id}&seasonId=#{season_id}"
+    puts "fetching teams for league #{espn_id}"
+    url = "http://games.espn.go.com/fba/standings?leagueId=#{espn_id}&seasonId=#{season_id}"
+    league = League.new
+    teams = league.import_teams url 
   end
 
   desc "fetch daily matchup data"
