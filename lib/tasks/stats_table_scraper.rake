@@ -8,12 +8,45 @@ namespace :scraper do
     puts "complete"
   end
 
+  desc "create league and teams from stats table"
+  task :create_league_and_teams => :environment do
+    wbl = League.create! name: "The World Basketball League", espn_id: 82652
+  end
+
   desc "fetch league teams"
   task :fetch_league_teams => :environment do
-    league_id = 82652
+    espn_id = 82652
+    name = "The World Basketball League"
     season_id = 2015
-    puts "fetching teams for league #{league_id}"
-    url = "http://games.espn.go.com/fba/standings?leagueId=#{league_id}&seasonId=#{season_id}"
+    puts "fetching teams for league #{espn_id}"
+    url = "http://games.espn.go.com/fba/standings?leagueId=#{espn_id}&seasonId=#{season_id}"
+    league = League.new
+    teams = league.import_teams url
+  end
+
+  desc "fetch daily stats"
+  task :fetch_daily_stats => :environment do
+    wbl = League.find_by name: "The World Basketball League"
+    scoring_period = 5
+    wbl.teams.each do |team|
+      url = "http://games.espn.go.com/fba/boxscorefull?leagueId=#{wbl.espn_id}&teamId=#{team.espn_id}&scoringPeriodId=#{scoring_period}&seasonId=2015&view=scoringperiod&version=full"
+      stat_lines = DailyStatLine.extract_stats url, scoring_period
+
+      stat_lines.each do |stat_line|
+        begin
+          line = DailyStatLine.new
+          line.attributes = stat_line
+          line.team = team
+          line.scoring_period = scoring_period
+          line.save!
+        rescue ActiveRecord::RecordInvalid => e
+          puts "Stat line not saved because #{e}"
+        end
+      end
+
+      puts "Box score scraped #{wbl.name} - #{team.name} - #{scoring_period}"
+      puts "Box score saved!"
+    end
   end
 
   desc "fetch daily matchup data"

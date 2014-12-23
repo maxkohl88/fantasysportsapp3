@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122025136) do
+ActiveRecord::Schema.define(version: 20141210032016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,11 @@ ActiveRecord::Schema.define(version: 20141122025136) do
     t.string   "owner"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id"
+    t.integer  "scoring_period"
   end
+
+  add_index "daily_stat_lines", ["team_id"], name: "index_daily_stat_lines_on_team_id", using: :btree
 
   create_table "league_stats_tables", force: true do |t|
     t.string   "team_name"
@@ -54,6 +58,24 @@ ActiveRecord::Schema.define(version: 20141122025136) do
     t.string   "current_streak"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "espn_id"
   end
+
+  create_table "leagues", force: true do |t|
+    t.integer  "espn_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", force: true do |t|
+    t.string   "name"
+    t.integer  "league_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "espn_id"
+  end
+
+  add_index "teams", ["league_id"], name: "index_teams_on_league_id", using: :btree
 
 end
