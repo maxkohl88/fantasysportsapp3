@@ -4,12 +4,11 @@ module NokoScraper
     Nokogiri::HTML(open(url))
   end
 
-  def extract_row_values(rows, constant, team)
+  def self.extract_row_values(rows, constant, scoring_period)
     table_stats_hash_array = []
 
     rows.each do |row|
       stats_hash = {}
-      stats_hash[:owner] = team
       stats_hash[:roster_spot] = row.css('.playerSlot').text
       stats_hash[:player_name] = row.css('.playertablePlayerName a').text
       counting_stats = row.css('.playertableStat')
